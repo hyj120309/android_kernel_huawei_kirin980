@@ -55,13 +55,13 @@ class NFAState(object):
 
 	# add an out state for a given event
 	def addOutEdge(self, event, state):
-		if not self.transMap.has_key(event):
+		if event not in self.transMap:
 			self.transMap[event] = set()
 		self.transMap[event].add(state)
 
 	# add a set of out states for a given event
 	def addOutEdges(self, event, states):
-		if not self.transMap.has_key(event):
+		if event not in self.transMap:
 			self.transMap[event] = set()
 		self.transMap[event] |= states
 
@@ -92,6 +92,9 @@ class DFAState(object):
 	def __eq__(self, other):
 		return self.idx == other.idx or self.NFAStates == other.NFAStates
 
+	def __hash__(self):
+		return hash(self.idx)
+
 	# add a NFAState into NFAStateSet, also merge the flags
 	# TODO: need a conflict detection method
 	def addNFAStateSingle(self, nfaState):
@@ -115,7 +118,7 @@ class DFAState(object):
 	def genNextDFAState(self, event):
 		nextDFAState = DFAState()
 		for nfaState in self.NFAStates:
-			if not nfaState.transMap.has_key(event):
+			if event not in nfaState.transMap:
 				continue
 			for nextNFAState in nfaState.transMap[event]:
 				nextDFAState.addNFAState(nextNFAState)
@@ -159,7 +162,7 @@ class Graph(object):
 
 	# add an event in dict and give it a sequential index
 	def addEvent(self, flags, value):
-		if not self.events.has_key(value):
+		if value not in self.events:
 			if flags & Event.FLAG_WILDCARD:
 				self.events[value] = Event(flags, value, Graph.EVENT_WILDCARD_IDX)
 			else:
@@ -196,7 +199,7 @@ class Graph(object):
 	def completeNFAGraph(self):
 		# 1. For GLOBAL events, non-STOP states (without out edge for these events) accepts them as loopback
 		for event in filter(lambda x: x.flags & Event.FLAG_GLOBAL != 0, self.events.values()):
-			for nfaState in filter(lambda x: x.flags & NFAState.FLAG_STOP == 0 and not x.transMap.has_key(event), self.NFAStates.values()):
+			for nfaState in filter(lambda x: x.flags & NFAState.FLAG_STOP == 0 and event not in x.transMap, self.NFAStates.values()):
 				nfaState.addOutEdge(event, nfaState)
 
 		# 2. For RESET events, non-STOP states accept them and go to STATE_STOP_IDX state
@@ -206,7 +209,7 @@ class Graph(object):
 
 		# 3. For WILDCARD events, replace it with all non-RESET events (there should be only 1 WILDCARD event)
 		for event in filter(lambda x: x.flags & Event.FLAG_WILDCARD != 0, self.events.values()):
-			for nfaState in filter(lambda x: x.transMap.has_key(event), self.NFAStates.values()):
+			for nfaState in filter(lambda x: event in x.transMap, self.NFAStates.values()):
 				wildcastNextNFAStates = nfaState.transMap.pop(event)
 				for otherEvent in self.events.values():
 					if otherEvent.flags & (Event.FLAG_RESET | Event.FLAG_WILDCARD) == 0:
