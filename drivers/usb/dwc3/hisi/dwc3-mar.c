@@ -1080,6 +1080,12 @@ static int mar_shared_phy_init(struct hisi_dwc3_device *hisi_dwc3, unsigned int 
 	pericfg_base = hisi_dwc3->pericfg_reg_base;
 	udelay(100);
 
+	/*
+	 * HarmonyOS 4.x (kernel 4.14) clears USB_MISC_CFG84 bit9 before
+	 * enabling the USB2 PHY reference clock.
+	 */
+	usb3_misc_reg_clrbit(9, 0x84ul);
+
 	/* enable 2.0 phy refclk */
 	ret = clk_prepare_enable(hisi_dwc3->gt_clk_usb2phy_ref);
 	if (ret) {
@@ -1256,6 +1262,14 @@ static int mar_usb3phy_init(struct hisi_dwc3_device *hisi_dwc3)
 		usb_err("usb driver not ready!\n");
 		goto out;
 	}
+
+	/*
+	 * HarmonyOS 4.x (kernel 4.14) clears USB_MISC_CFG84 bit9 here, right
+	 * after taking the USB misc ctrl reference and before touching the
+	 * USB2 PHY clock/release. EMUI 9.1 (this 4.9 driver) never writes
+	 * CFG84 at all, so the bit keeps whatever the bootloader left behind.
+	 */
+	usb3_misc_reg_clrbit(9, 0x84ul);
 
 	if (!hisi_dwc3->support_dp || !flag) {
 		ret = dwc3_phy_release(hisi_dwc3);
