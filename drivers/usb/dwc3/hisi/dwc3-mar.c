@@ -1233,15 +1233,6 @@ static void config_usbphy_power(void __iomem *sctrl_base)
 	scdeepsleeped = (uint32_t)readl(SCTRL_SCDEEPSLEEPED + sctrl_base);
 	if ((scdeepsleeped & (1 << 7)) != 0)
 		usb3_sc_misc_reg_setbit(12, 0x60c);
-
-	/*
-	 * HarmonyOS 4.x (kernel 4.14) clears USB20PHY misc ctrl bit12 of
-	 * register 0x60c unconditionally before taking the USB misc ctrl
-	 * reference. The EMUI 9.1 driver only ever *sets* this bit (and only
-	 * when SCDEEPSLEEPED bit7 is set), so on a unit where the bootloader
-	 * left it set the USB2 PHY never leaves its powered-down state.
-	 */
-	usb3_sc_misc_reg_clrbit(12, 0x60cul);
 }
 
 static int mar_usb3phy_init(struct hisi_dwc3_device *hisi_dwc3)
@@ -1265,6 +1256,20 @@ static int mar_usb3phy_init(struct hisi_dwc3_device *hisi_dwc3)
 	usb3_phy_33v_enable(hisi_dwc3);
 
 	config_usbphy_power(sctrl_base);
+
+	/*
+	 * HarmonyOS 4.x (kernel 4.14) clears bit12 of SC_USB20PHY_MISC_CTRL3
+	 * (0x60c) unconditionally here, before taking the USB misc ctrl
+	 * reference.
+	 *
+	 * EMUI 9.1 only ever *sets* that bit, and only when SCDEEPSLEEPED
+	 * bit7 is non-zero (see config_usbphy_power above), so on a unit
+	 * where the bootloader left bit12 set the USB2 PHY never leaves its
+	 * powered-down state: D+ is never pulled up, the host sees no
+	 * attach at all, and BC1.2 falls back to SDP (500mA, no fast
+	 * charge). USB3 is unaffected because it uses the SS PHY path.
+	 */
+	usb3_sc_misc_reg_clrbit(12, 0x60cul);
 
 	ret = dwc3_misc_ctrl_get(MICS_CTRL_USB);
 	if (ret) {
@@ -1318,6 +1323,19 @@ static int mar_usb3phy_init(struct hisi_dwc3_device *hisi_dwc3)
 
 	set_hisi_dwc3_power_flag(USB_POWER_ON);
 	flag = 1;
+
+	/*
+	 * TEMPORARY DIAGNOSTIC for the USB2 fuseblow investigation.
+	 * Logs the USB2 PHY registers after a successful init so the
+	 * 0x60c bit12 / 0x84 bit9 state can be verified on device.
+	 * Remove once the USB2 fix is confirmed.
+	 */
+	usb_info("phy init done: CFG604=0x%x CFG608=0x%x CFG60c=0x%x CFG618=0x%x CFG84=0x%x\n",
+		usb3_sc_misc_reg_readl(0x604ul),
+		usb3_sc_misc_reg_readl(0x608ul),
+		usb3_sc_misc_reg_readl(0x60cul),
+		usb3_sc_misc_reg_readl(0x618ul),
+		usb3_misc_reg_readl(0x84ul));
 
 	usb_dbg("-\n");
 	return ret;
