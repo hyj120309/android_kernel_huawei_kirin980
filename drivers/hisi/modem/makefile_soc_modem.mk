@@ -88,6 +88,30 @@ KBUILD_CFLAGS += -DFEATURE_BALONG_CL=FEATURE_OFF
 endif
 
 
+ifeq ($(strip $(CONFIG_HISI_BALONG_MODEM)),y)
+
+# Built-in balong modem.
+#
+# The vendor partition ships a prebuilt modem_driver/balong_modem.ko whose
+# genksyms symbol CRCs match the stock 4.9.148 kernel only. Any rebuild of
+# this kernel produces different CRCs, and the vendor partition is erofs
+# (read-only, cannot be reflashed here), so the prebuilt module can never
+# be loaded again. Build the modem into the kernel instead.
+#
+# The subdirectories already know how to build themselves in this mode:
+# each of oam/gu/Kbuild, ps/gu/Kbuild, ps/tl/Kbuild, tafnew/Kbuild and
+# friends carries its own
+#     ifneq ($(strip $(CONFIG_HISI_BALONG_MODEM)),m)
+#     obj-y := <name>.o
+#     endif
+# block. This branch only has to supply what the =m path used to provide:
+# the exported-symbol object and the CONFIG_HISI_BALONG_MODEM define.
+obj-y			+= modem_symbol.o
+
+subdir-ccflags-y	+= -DCONFIG_HISI_BALONG_MODEM -Wno-unused-function -Wno-undef
+
+endif
+
 ifeq ($(strip $(CONFIG_HISI_BALONG_MODEM)),m)
 
 BALONG_MODEM_MODULE := balong_modem

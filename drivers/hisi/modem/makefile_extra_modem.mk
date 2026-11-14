@@ -29,6 +29,26 @@ KBUILD_CFLAGS += -DMODULE_EXPORTED=
 
 
 
+ifeq ($(strip $(CONFIG_HISI_BALONG_MODEM)),y)
+
+# Built-in balong modem (A+B variant). See makefile_soc_modem.mk.
+obj-y			+= modem_symbol.o
+
+subdir-ccflags-y	+= -DCONFIG_HISI_BALONG_MODEM -Wno-unused-function -Wno-undef
+
+# drv objects are collected the same way as in the =m path, then folded
+# into obj-y by drv/Makefile.
+include $(srctree)/drivers/hisi/modem/drv/Makefile
+obj-y			+= $(addprefix drv/, $(drv-builtin))
+
+ifneq ($(OBB_SEPARATE),true)
+# taf
+-include $(srctree)/drivers/hisi/modem/tafnew/Kbuild
+obj-y			+= $(addprefix tafnew/, $(taf-objs))
+endif
+
+endif
+
 ifeq ($(strip $(CONFIG_HISI_BALONG_MODEM)),m)
 
 BALONG_MODEM_MODULE := balong_modem
