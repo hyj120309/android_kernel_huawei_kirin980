@@ -1233,6 +1233,15 @@ static void config_usbphy_power(void __iomem *sctrl_base)
 	scdeepsleeped = (uint32_t)readl(SCTRL_SCDEEPSLEEPED + sctrl_base);
 	if ((scdeepsleeped & (1 << 7)) != 0)
 		usb3_sc_misc_reg_setbit(12, 0x60c);
+
+	/*
+	 * HarmonyOS 4.x (kernel 4.14) clears USB20PHY misc ctrl bit12 of
+	 * register 0x60c unconditionally before taking the USB misc ctrl
+	 * reference. The EMUI 9.1 driver only ever *sets* this bit (and only
+	 * when SCDEEPSLEEPED bit7 is set), so on a unit where the bootloader
+	 * left it set the USB2 PHY never leaves its powered-down state.
+	 */
+	usb3_sc_misc_reg_clrbit(12, 0x60cul);
 }
 
 static int mar_usb3phy_init(struct hisi_dwc3_device *hisi_dwc3)
