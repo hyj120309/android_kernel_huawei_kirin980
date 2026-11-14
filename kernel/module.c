@@ -1287,7 +1287,6 @@ static int check_version(Elf_Shdr *sechdrs,
 {
 	unsigned int i, num_versions;
 	struct modversion_info *versions;
-	unsigned long kern_crc = 0, mod_crc = 0;
 
 	/* Exporting module didn't supply crcs?  OK, we're already tainted. */
 	if (!crc)
@@ -1305,12 +1304,10 @@ static int check_version(Elf_Shdr *sechdrs,
 		if (strcmp(versions[i].name, symname) != 0)
 			continue;
 
-		kern_crc = maybe_relocated(*crc, crc_owner);
-		mod_crc = versions[i].crc;
-		if (mod_crc == kern_crc)
+		if (versions[i].crc == maybe_relocated(*crc, crc_owner))
 			return 1;
 		pr_debug("Found checksum %lX vs module %lX\n",
-		       kern_crc, mod_crc);
+		       maybe_relocated(*crc, crc_owner), versions[i].crc);
 		goto bad_version;
 	}
 
@@ -1319,25 +1316,9 @@ static int check_version(Elf_Shdr *sechdrs,
 	return 1;
 
 bad_version:
-	pr_warn("%s: disagrees about version of symbol %s (kernel 0x%lx, module 0x%lx)\n",
-	       mod->name, symname, kern_crc, mod_crc);
-
-	/*
-	 * Version mismatch is a warning only.
-	 *
-	 * This kernel is rebuilt from modified sources (USB2 fuseblow fix,
-	 * binder secctx backport, ...), so every genksyms CRC differs from
-	 * the one recorded in the vendor partition's prebuilt modules
-	 * (notably modem_driver/balong_modem.ko). The vendor partition is
-	 * erofs and cannot be rewritten, so rejecting these modules would
-	 * leave the device without a modem.
-	 *
-	 * The ABI itself is unchanged: no struct layout or exported function
-	 * signature was touched by the local patches, only function bodies.
-	 * Load the module anyway and rely on the warning above to spot real
-	 * mismatches.
-	 */
-	return 1;
+	pr_warn("%s: disagrees about version of symbol %s\n",
+	       mod->name, symname);
+	return 0;
 }
 
 static inline int check_modstruct_version(Elf_Shdr *sechdrs,
