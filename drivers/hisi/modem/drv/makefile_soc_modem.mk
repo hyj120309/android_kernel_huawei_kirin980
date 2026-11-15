@@ -625,6 +625,20 @@ ifeq ($(strip $(CFG_CONFIG_WAN)),YES)
 obj-y               += wan/
 endif
 obj-y               += buildin/
+
+# Object that only the =m path used to build.
+#
+# drv-y is a mix of directory recursion and individual .o files. The
+# directories are handled by the obj-y += <dir>/ lines above, but one
+# target lives in a subdirectory that has no Makefile of its own, so
+# nothing in the built-in path would ever compile it:
+#
+#   sysboot/sysboot_balong.o   - carries module_init(bsp_modem_module_init),
+#                                i.e. the modem's only entry point. Without
+#                                it the built-in modem silently never
+#                                initialises (no balong output in dmesg).
+obj-y               += sysboot/sysboot_balong.o
+
 endif
 obj-$(CONFIG_PCIE_BALONG_DEV)          += pcie_balong_dev/
 
