@@ -540,8 +540,17 @@ s32 do_power_on(u16 action)
 	}
 	if(ret < 0)
 	{
+		/*
+		 * The image could not be loaded or failed its secure boot verify.
+		 * Stop here instead of driving the reset state machine on: the
+		 * later stages unreset ccore, and a core coming out of reset with
+		 * an image that never verified faults immediately, which CP
+		 * reports as a system error (0x82000006) with CP_S_RESETFAIL
+		 * (0x74) and the AP reboots. Leaving the modem in reset costs the
+		 * radio but keeps the phone up.
+		 */
 		modem_reset_fail_id = MODEM_RESET_LOAD_SEC_IMAGE_ERR;
-		reset_reboot_system(RESET_TYPE_LOAD_MODEM_IMG_FAIL);
+		reset_print_err("modem image load failed, leaving ccore in reset\n");
 		return RESET_ERROR;
 	}
 	cp_reset_timestamp_dump(RESET_DUMP_LOAD_IMAGE_END);
