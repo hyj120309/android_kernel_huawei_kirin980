@@ -626,18 +626,34 @@ obj-y               += wan/
 endif
 obj-y               += buildin/
 
-# Object that only the =m path used to build.
+# Objects that only the =m path used to build.
 #
 # drv-y is a mix of directory recursion and individual .o files. The
-# directories are handled by the obj-y += <dir>/ lines above, but one
-# target lives in a subdirectory that has no Makefile of its own, so
-# nothing in the built-in path would ever compile it:
+# directories are handled by the obj-y += <dir>/ lines above, but a few
+# targets live in subdirectories whose Makefile does not pull them in, so
+# nothing in the built-in path would ever compile them:
 #
 #   sysboot/sysboot_balong.o   - carries module_init(bsp_modem_module_init),
 #                                i.e. the modem's only entry point. Without
 #                                it the built-in modem silently never
 #                                initialises (no balong output in dmesg).
+#                                sysboot/ has no Makefile at all.
+#   thermal/thermal.o          - thermal/Makefile gates it on
+#                                CONFIG_THERMAL_BALONG, which this defconfig
+#                                does not set, yet drv-y always compiles it
+#                                and mdrv_module_init_soc_modem.h references
+#                                thermal_up_init unconditionally.
+#   ocp/pmic_dcxo.o            - ocp/Makefile only lists pmic_ocp.o, but
+#                                drv-y always compiles pmic_dcxo.o when
+#                                CFG_CONFIG_PHONE_DCXO_AP is YES and
+#                                mdrv_module_init_soc_modem.h references
+#                                pmic_dcxo_init unconditionally.
 obj-y               += sysboot/sysboot_balong.o
+obj-y               += thermal/thermal.o
+
+ifeq ($(strip $(CFG_CONFIG_PHONE_DCXO_AP)),YES)
+obj-y               += ocp/pmic_dcxo.o
+endif
 
 endif
 obj-$(CONFIG_PCIE_BALONG_DEV)          += pcie_balong_dev/
