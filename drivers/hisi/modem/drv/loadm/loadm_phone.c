@@ -71,6 +71,7 @@
 #include "load_image.h"
 #include <bsp_print.h>
 #include <bsp_cold_patch.h>
+#include <bsp_rfile.h>
 #define THIS_MODU mod_loadm
 #include <../../adrv/adrv.h>
 
@@ -79,6 +80,61 @@ extern int modem_nv_init(void);
 extern int VOS_ModuleInit(void);
 
 DECLARE_COMPLETION(modem_sysboot_start_complete);
+
+/*
+ * Wait until Android's userspace has finished mounting what the modem loader
+ * needs, before touching the secure boot path.
+ *
+ * Built as a module, balong_modem.ko was insmod'ed by a vendor init script
+ * long after mount_all, so everything it opened (/vendor/modem/modem_fw,
+ * /data/hisi_logs, /product/...) was already there. Built into the kernel we
+ * run much earlier: the sysfs trigger fires while init is still doing its
+ * early mounts (in one observed boot the trigger landed at 44.2s, and init
+ * was still mounting modem_driver/modem_fw/modem_secure/modemnvm_img at
+ * 44.4-44.5s). Loading the 21MB secure image inside that window is the one
+ * thing the built-in path does that the module never did, so hold off until
+ * the filesystem looks settled.
+ *
+ * Every path here is only a proxy: the real gate is that mount_all is done.
+ * The polling is bounded so a device that never gets there still boots, just
+ * with the modem in the state it is in today.
+ */
+#define MODEM_FS_SETTLE_TIMEOUT_MS	30000
+#define MODEM_FS_SETTLE_POLL_MS		100
+
+static bool modem_path_ready(const char *path)
+{
+	return bsp_access((s8 *)path, 0) == 0;
+}
+
+static void modem_wait_for_fs(void)
+{
+	int waited = 0;
+
+	/* /data/system only exists once /data is mounted and init has run. */
+	while (waited < MODEM_FS_SETTLE_TIMEOUT_MS) {
+		if (modem_path_ready("/data/system/misc"))
+			break;
+		msleep(MODEM_FS_SETTLE_POLL_MS);
+		waited += MODEM_FS_SETTLE_POLL_MS;
+	}
+	bsp_err("waited %d ms for /data\n", waited);
+
+	/*
+	 * Report what the loader is going to see. bsp_access() resolves
+	 * against current->fs, so if these differ from what userspace sees,
+	 * the built-in context is the problem rather than anything on disk.
+	 */
+	bsp_err("probe /data/system: %d\n", modem_path_ready("/data/system"));
+	bsp_err("probe /vendor/modem/modem_fw: %d\n", modem_path_ready("/vendor/modem/modem_fw"));
+	bsp_err("probe sec_modem_dt.img: %d\n",
+		modem_path_ready("/vendor/modem/modem_fw/sec_modem_dt.img"));
+	bsp_err("probe sec_balong_modem.bin: %d\n",
+		modem_path_ready("/vendor/modem/modem_fw/sec_balong_modem.bin"));
+	bsp_err("probe /patch_hw/modem_fw: %d\n", modem_path_ready("/patch_hw/modem_fw"));
+	bsp_err("probe modemCert dir: %d\n",
+		modem_path_ready("/product/region_comm/china/modemCert/"));
+}
 
 
 
@@ -90,6 +146,8 @@ int modem_sysboot_start_init(void)
     u64 jiffies_time=0;
 
     bsp_err("%s in.\n", __func__);
+
+    modem_wait_for_fs();
 
     if(bsp_get_version_info())
     {

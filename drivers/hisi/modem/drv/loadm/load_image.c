@@ -492,6 +492,16 @@ static int verify_soc_image(enum SVC_SECBOOT_IMG_TYPE  image,
      operation.params[0].value.b = 0;/*SECBOOT_LOCKSTATE , not used currently*/
      operation.params[1].value.a = (u32)(paddr & 0xFFFFFFFF);
      operation.params[1].value.b = (u32)((u64)paddr >> 32);/* ÊÖ»úºÍMBB ¼æÈÝ */
+     /*
+      * Diagnostic: verify is the only place where the image type and the
+      * DDR address handed to the secure OS are visible together. If one
+      * image fails here while the smaller ones pass, this shows which of
+      * the two is the odd one out.
+      */
+     sec_print_info("verify type %d run_addr 0x%x paddr 0x%lx size 0x%x\n",
+                    (int)image, run_addr, paddr,
+                    ((unsigned int)image < ARRAY_SIZE(g_images_size)) ?
+                     g_images_size[image] : 0);
      result = TEEK_InvokeCommand(session,
                                    SECBOOT_CMD_ID_VERIFY_DATA_TYPE,
                                     &operation,
