@@ -82,50 +82,22 @@ extern int VOS_ModuleInit(void);
 DECLARE_COMPLETION(modem_sysboot_start_complete);
 
 /*
- * Wait until Android's userspace has finished mounting what the modem loader
- * needs, before touching the secure boot path.
- *
- * Built as a module, balong_modem.ko was insmod'ed by a vendor init script
- * long after mount_all, so everything it opened (/vendor/modem/modem_fw,
- * /data/hisi_logs, /product/...) was already there. Built into the kernel we
- * run much earlier: the sysfs trigger fires while init is still doing its
- * early mounts (in one observed boot the trigger landed at 44.2s, and init
- * was still mounting modem_driver/modem_fw/modem_secure/modemnvm_img at
- * 44.4-44.5s). Loading the 21MB secure image inside that window is the one
- * thing the built-in path does that the module never did, so hold off until
- * the filesystem looks settled.
- *
- * Every path here is only a proxy: the real gate is that mount_all is done.
- * The polling is bounded so a device that never gets there still boots, just
- * with the modem in the state it is in today.
+ * The built-in modem runs at device_initcall time and is released by a sysfs
+ * write, so it can end up loading images while init is still mounting
+ * partitions. Nothing here blocks on that: the delays observed so far
+ * (44.2s in one boot, 16.7s in another) are userspace's choice and probing a
+ * path as a proxy for "mount_all is done" would only add a guess. Just record
+ * what the loader can see at the moment it starts, so a failing boot says
+ * whether the images were even reachable.
  */
-#define MODEM_FS_SETTLE_TIMEOUT_MS	30000
-#define MODEM_FS_SETTLE_POLL_MS		100
-
 static bool modem_path_ready(const char *path)
 {
 	return bsp_access((s8 *)path, 0) == 0;
 }
 
-static void modem_wait_for_fs(void)
+static void modem_probe_fs(void)
 {
-	int waited = 0;
-
-	/* /data/system only exists once /data is mounted and init has run. */
-	while (waited < MODEM_FS_SETTLE_TIMEOUT_MS) {
-		if (modem_path_ready("/data/system/misc"))
-			break;
-		msleep(MODEM_FS_SETTLE_POLL_MS);
-		waited += MODEM_FS_SETTLE_POLL_MS;
-	}
-	bsp_err("waited %d ms for /data\n", waited);
-
-	/*
-	 * Report what the loader is going to see. bsp_access() resolves
-	 * against current->fs, so if these differ from what userspace sees,
-	 * the built-in context is the problem rather than anything on disk.
-	 */
-	bsp_err("probe /data/system: %d\n", modem_path_ready("/data/system"));
+	bsp_err("probe /data: %d\n", modem_path_ready("/data"));
 	bsp_err("probe /vendor/modem/modem_fw: %d\n", modem_path_ready("/vendor/modem/modem_fw"));
 	bsp_err("probe sec_modem_dt.img: %d\n",
 		modem_path_ready("/vendor/modem/modem_fw/sec_modem_dt.img"));
@@ -136,8 +108,6 @@ static void modem_wait_for_fs(void)
 		modem_path_ready("/product/region_comm/china/modemCert/"));
 }
 
-
-
 int modem_sysboot_start_init(void)
 {
     int ret;
@@ -147,7 +117,7 @@ int modem_sysboot_start_init(void)
 
     bsp_err("%s in.\n", __func__);
 
-    modem_wait_for_fs();
+    modem_probe_fs();
 
     if(bsp_get_version_info())
     {
@@ -200,7 +170,17 @@ int modem_sysboot_start_init(void)
     ret = bsp_load_modem_images();
     if (ret)
     {
-        bsp_err("%s his_load_image_start_up fail ",__func__);
+        /*
+         * The image failed to load or failed its secure boot verify. Do
+         * not release ccore: bringing it out of reset with a bad image
+         * only makes it fault, which the CP reports as a system error and
+         * the AP answers with a reset (e_exce_type 0x74, CP_S_RESETFAIL).
+         * Leaving the modem powered down costs us radio, but it keeps the
+         * phone up and the failure diagnosable.
+         */
+        bsp_err("%s his_load_image_start_up fail , ret = 0x%x, skip ccore reset\n",
+                __func__, ret);
+        return ret;
     }
 
     /*只在MBB平台上需要发送复位请求中断*/
