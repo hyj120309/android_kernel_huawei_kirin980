@@ -59,6 +59,8 @@
 #include <linux/kmemleak.h>
 #include <linux/jump_label.h>
 #include <asm/system_misc.h>
+#include <asm/sysreg.h>
+#include <asm/tlbflush.h>
 #include <linux/pfn.h>
 #include <linux/bsearch.h>
 #include <linux/dynamic_debug.h>
@@ -1883,6 +1885,17 @@ static void module_debug_dump(const char *tag, const struct module *mod)
 	       tag, mod->name, (unsigned long)mod->init,
 	       (unsigned long)mod->init - (unsigned long)mod->init_layout.base,
 	       (int)rodata_enabled);
+	{
+		u64 sctlr = read_sysreg(sctlr_el1);
+		u64 ttbr1 = read_sysreg(ttbr1_el1);
+
+		pr_err("MODDBG[%s] sctlr_el1=%016llx WXN(b19)=%llu ttbr1_el1=%016llx\n",
+		       tag, sctlr, (sctlr >> 19) & 1, ttbr1);
+		pr_err("MODDBG[%s] swapper_pg_dir(va)=%px phys=%llx init_mm.pgd=%px\n",
+		       tag, (void *)swapper_pg_dir,
+		       (unsigned long long)__pa_symbol(swapper_pg_dir),
+		       (void *)init_mm.pgd);
+	}
 
 	if (mod->init_layout.base)
 		show_pte(&init_mm, (unsigned long)mod->init_layout.base);
@@ -3482,6 +3495,14 @@ static noinline int do_init_module(struct module *mod)
 
 	do_mod_ctors(mod);
 	module_debug_dump("pre-call", mod);
+	/* TEMP-DEBUG: vmap_page_range only calls flush_cache_vmap(), which is an
+	 * empty stub on arm64, and freed vmap areas are torn down lazily. The
+	 * module region comes out of vmalloc, so a stale translation for this
+	 * address could survive. Force a full TLB flush and re-read the entry. */
+	flush_tlb_all();
+	pr_err("MODDBG[pre-call] after flush_tlb_all:\n");
+	if (mod->init)
+		show_pte(&init_mm, (unsigned long)mod->init);
 	/* Start the module */
 	if (mod->init != NULL)
 		ret = do_one_initcall(mod->init);
