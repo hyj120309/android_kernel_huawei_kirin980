@@ -11,6 +11,17 @@ config HISI_HHEE_TOKEN
 	help
 	  Say yes when token needed
 
+config HISI_HKIP_ROOT_DETECT
+	bool "HKIP root escalation checks"
+	depends on HISI_HHEE
+	default n
+	help
+	  Say yes to build the HKIP credential watchdog (hkip/critdata.c).
+	  It SIGKILLs any task whose uid/euid/suid is root or that holds
+	  capabilities, and also blocks setxattr on a few kernel paths.
+	  This is Huawei's root detector, not part of the EL2 page-table
+	  communication, so it can stay off while HISI_HHEE itself is on.
+
 config HISI_HHEE_DEBUG
 	bool "HISI HHEE test support"
 	depends on !UBSAN && !KCOV && !KASAN

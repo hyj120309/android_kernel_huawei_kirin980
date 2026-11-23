@@ -1,0 +1,1 @@
+cmd_drivers/hisi/hhee/hkip/built-in.o :=   aarch64-linux-gnu-ld -EL   -r -o drivers/hisi/hhee/hkip/built-in.o drivers/hisi/hhee/hkip/hvc.o drivers/hisi/hhee/hkip/rodata.o drivers/hisi/hhee/hkip/critdata.o 

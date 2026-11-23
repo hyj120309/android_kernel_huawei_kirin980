@@ -107,13 +107,6 @@ extern u8 hkip_addr_limit_bits[];
 #define hkip_set_fs(fs) \
 	hkip_set_current_bit(hkip_addr_limit_bits, (fs) == KERNEL_DS)
 
-int hkip_check_uid_root(void);
-int hkip_check_gid_root(void);
-int hkip_check_xid_root(void);
-
-void hkip_init_task(struct task_struct *task);
-void hkip_update_xid_root(const struct cred *creds);
-
 #else
 
 #define hkip_set_fs(fs) ((void)(fs))
@@ -133,6 +126,21 @@ static inline int hkip_unregister_ro_mod(const void *base, size_t size)
 	return 0;
 }
 
+#endif
+
+/*
+ * Root escalation detection (hkip/critdata.c) lives behind its own option:
+ * it is unrelated to the EL2 page-table communication above, and enforcing
+ * it kills root processes, so it stays off by default.
+ */
+#ifdef CONFIG_HISI_HKIP_ROOT_DETECT
+int hkip_check_uid_root(void);
+int hkip_check_gid_root(void);
+int hkip_check_xid_root(void);
+
+void hkip_update_xid_root(const struct cred *creds);
+#else
+
 static inline int hkip_check_uid_root(void)
 {
 	return 0;
@@ -146,9 +154,18 @@ static inline int hkip_check_xid_root(void)
 	return 0;
 }
 
-static inline void hkip_init_task(struct task_struct *task) { }
 static inline void hkip_update_xid_root(const struct cred *creds) { }
 
+#endif
+
+/*
+ * hkip_init_task() seeds the addr_limit bitmap, which is EL2 bookkeeping
+ * rather than root detection, so it is built whenever HHEE is enabled.
+ */
+#ifdef CONFIG_HISI_HHEE
+void hkip_init_task(struct task_struct *task);
+#else
+static inline void hkip_init_task(struct task_struct *task) { }
 #endif
 
 #endif /* LINUX_HKIP_H */

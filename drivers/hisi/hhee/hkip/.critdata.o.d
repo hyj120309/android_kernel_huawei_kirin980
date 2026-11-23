@@ -1,0 +1,291 @@
+critdata.o: drivers/hisi/hhee/hkip/critdata.c include/linux/kconfig.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/generated/autoconf.h \
+ arch/arm64/include/asm/uaccess.h arch/arm64/include/asm/alternative.h \
+ arch/arm64/include/asm/cpucaps.h arch/arm64/include/asm/insn.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/types.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/linux/types.h \
+ arch/arm64/include/generated/asm/types.h \
+ include/uapi/asm-generic/types.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/int-ll64.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/asm-generic/int-ll64.h \
+ arch/arm64/include/uapi/asm/bitsperlong.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/bitsperlong.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/asm-generic/bitsperlong.h \
+ include/uapi/linux/posix_types.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/stddef.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/linux/stddef.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/compiler.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/compiler-gcc.h \
+ arch/arm64/include/uapi/asm/posix_types.h \
+ include/uapi/asm-generic/posix_types.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/init.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/stringify.h \
+ arch/arm64/include/asm/kernel-pgtable.h arch/arm64/include/asm/pgtable.h \
+ arch/arm64/include/asm/bug.h arch/arm64/include/asm/brk-imm.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/bug.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/kernel.h \
+ /usr/lib/gcc/aarch64-linux-gnu/16.2.0/include/stdarg.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/linkage.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/export.h \
+ arch/arm64/include/asm/linkage.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/bitops.h \
+ arch/arm64/include/asm/bitops.h arch/arm64/include/asm/barrier.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/barrier.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/bitops/builtin-__ffs.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/bitops/builtin-ffs.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/bitops/builtin-__fls.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/bitops/builtin-fls.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/bitops/ffz.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/bitops/fls64.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/bitops/find.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/bitops/sched.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/bitops/hweight.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/bitops/arch_hweight.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/bitops/const_hweight.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/bitops/lock.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/bitops/non-atomic.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/bitops/le.h \
+ arch/arm64/include/uapi/asm/byteorder.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/byteorder/little_endian.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/linux/byteorder/little_endian.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/swab.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/linux/swab.h \
+ arch/arm64/include/generated/asm/swab.h include/uapi/asm-generic/swab.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/byteorder/generic.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/log2.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/typecheck.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/printk.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/kern_levels.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/cache.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/linux/kernel.h \
+ include/uapi/linux/sysinfo.h arch/arm64/include/asm/cache.h \
+ arch/arm64/include/asm/cachetype.h arch/arm64/include/asm/cputype.h \
+ arch/arm64/include/asm/sysreg.h arch/arm64/include/asm/compiler.h \
+ arch/arm64/include/asm/proc-fns.h arch/arm64/include/asm/page.h \
+ include/uapi/linux/const.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/personality.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/linux/personality.h \
+ arch/arm64/include/asm/pgtable-types.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/pgtable-nopud.h \
+ arch/arm64/include/asm/memory.h arch/arm64/include/generated/asm/sizes.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/sizes.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/sizes.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/mmdebug.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/bug.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/memory_model.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/pfn.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/getorder.h \
+ arch/arm64/include/asm/pgtable-hwdef.h \
+ arch/arm64/include/asm/pgtable-prot.h arch/arm64/include/asm/fixmap.h \
+ arch/arm64/include/asm/boot.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/fixmap.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/pgtable.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/mm_types.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/auxvec.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/linux/auxvec.h \
+ arch/arm64/include/uapi/asm/auxvec.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/threads.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/list.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/poison.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/spinlock.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/preempt.h \
+ arch/arm64/include/generated/asm/preempt.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/preempt.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/thread_info.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/restart_block.h \
+ arch/arm64/include/asm/current.h arch/arm64/include/asm/thread_info.h \
+ arch/arm64/include/asm/stack_pointer.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/irqflags.h \
+ arch/arm64/include/asm/irqflags.h arch/arm64/include/asm/ptrace.h \
+ arch/arm64/include/uapi/asm/ptrace.h arch/arm64/include/asm/hwcap.h \
+ arch/arm64/include/uapi/asm/hwcap.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/ptrace.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/bottom_half.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/spinlock_types.h \
+ arch/arm64/include/asm/spinlock_types.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/lockdep.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/rwlock_types.h \
+ arch/arm64/include/asm/spinlock.h arch/arm64/include/asm/lse.h \
+ arch/arm64/include/asm/processor.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/string.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/linux/string.h \
+ arch/arm64/include/asm/string.h arch/arm64/include/asm/fpsimd.h \
+ arch/arm64/include/asm/hw_breakpoint.h \
+ arch/arm64/include/asm/cpufeature.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/jump_label.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/atomic.h \
+ arch/arm64/include/asm/atomic.h arch/arm64/include/asm/atomic_ll_sc.h \
+ arch/arm64/include/asm/cmpxchg.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/atomic-long.h \
+ arch/arm64/include/asm/virt.h arch/arm64/include/asm/sections.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/sections.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/rwlock.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/spinlock_api_smp.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/rwlock_api_smp.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/rbtree.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/rcupdate.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/cpumask.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/bitmap.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/seqlock.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/completion.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/wait.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/linux/wait.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/debugobjects.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/ktime.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/time.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/math64.h \
+ arch/arm64/include/generated/asm/div64.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/div64.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/time64.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/linux/time.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/jiffies.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/timex.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/linux/timex.h \
+ include/uapi/linux/param.h arch/arm64/include/uapi/asm/param.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/param.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/asm-generic/param.h \
+ arch/arm64/include/asm/timex.h arch/arm64/include/asm/arch_timer.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/clocksource/arm_arch_timer.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/timecounter.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/timex.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/generated/timeconst.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/timekeeping.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/errno.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/linux/errno.h \
+ arch/arm64/include/generated/asm/errno.h \
+ include/uapi/asm-generic/errno.h include/uapi/asm-generic/errno-base.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/rcutree.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/rwsem.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/err.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/osq_lock.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/chipset_common/hwcfs/hwcfs_rwsem.h \
+ arch/arm64/include/generated/asm/rwsem.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/rwsem.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/uprobes.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/page-flags-layout.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/numa.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/generated/bounds.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/workqueue.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/timer.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/sysctl.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/uidgid.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/highuid.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/linux/sysctl.h \
+ arch/arm64/include/asm/mmu.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/percpu.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/smp.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/llist.h \
+ arch/arm64/include/asm/smp.h arch/arm64/include/asm/percpu.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/percpu.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/percpu-defs.h \
+ arch/arm64/include/asm/sparsemem.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/kasan-checks.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/hisi/hisi_hkip.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/sched.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/linux/sched.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/sched/prio.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/capability.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/linux/capability.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/plist.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/nodemask.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/cputime.h \
+ arch/arm64/include/generated/asm/cputime.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/cputime.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/cputime_jiffies.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/sem.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/linux/sem.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/ipc.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/linux/ipc.h \
+ arch/arm64/include/generated/asm/ipcbuf.h \
+ include/uapi/asm-generic/ipcbuf.h \
+ arch/arm64/include/generated/asm/sembuf.h \
+ include/uapi/asm-generic/sembuf.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/shm.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/linux/shm.h \
+ arch/arm64/include/generated/asm/shmbuf.h \
+ include/uapi/asm-generic/shmbuf.h arch/arm64/include/asm/shmparam.h \
+ include/uapi/asm-generic/shmparam.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/signal.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/linux/signal.h \
+ arch/arm64/include/uapi/asm/signal.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/signal.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/asm-generic/signal.h \
+ include/uapi/asm-generic/signal-defs.h \
+ arch/arm64/include/uapi/asm/sigcontext.h \
+ arch/arm64/include/uapi/asm/siginfo.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/siginfo.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/asm-generic/siginfo.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/pid.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/topology.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/mmzone.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/pageblock-flags.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/memory_hotplug.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/notifier.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/mutex.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/chipset_common/hwcfs/hwcfs_mutex.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/srcu.h \
+ arch/arm64/include/asm/topology.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/topology.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/seccomp.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/linux/seccomp.h \
+ arch/arm64/include/asm/seccomp.h arch/arm64/include/asm/unistd.h \
+ arch/arm64/include/uapi/asm/unistd.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/unistd.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/asm-generic/unistd.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/seccomp.h \
+ include/uapi/linux/unistd.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/rculist.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/rtmutex.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/resource.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/linux/resource.h \
+ arch/arm64/include/generated/asm/resource.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/resource.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/asm-generic/resource.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/hrtimer.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/timerqueue.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/kcov.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/linux/kcov.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/task_io_accounting.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/latencytop.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/cred.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/key.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/assoc_array.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/selinux.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/gfp.h \
+ include/uapi/linux/magic.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/cgroup-defs.h \
+ include/uapi/linux/limits.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/idr.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/percpu-refcount.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/percpu-rwsem.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/rcu_sync.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/bpf-cgroup.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/linux/bpf.h \
+ include/uapi/linux/bpf_common.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/cgroup_subsys.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/hisi/hisi_hhee.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/arm-smccc.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/linux/const.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/module.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/stat.h \
+ arch/arm64/include/asm/stat.h arch/arm64/include/uapi/asm/stat.h \
+ include/uapi/asm-generic/stat.h arch/arm64/include/asm/compat.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/linux/stat.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/kmod.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/elf.h \
+ arch/arm64/include/asm/elf.h arch/arm64/include/generated/asm/user.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/user.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/uapi/linux/elf.h \
+ include/uapi/linux/elf-em.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/kobject.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/sysfs.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/kernfs.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/kobject_ns.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/kref.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/moduleparam.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/extable.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/rbtree_latch.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/linux/cfi.h \
+ arch/arm64/include/asm/module.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/asm-generic/module.h \
+ /run/media/Hyj/4d42e298-9207-44db-8bcf-3eddc241d59f/code/kernel/android_kernel_huawei_kirin980/include/generated/uapi/linux/version.h

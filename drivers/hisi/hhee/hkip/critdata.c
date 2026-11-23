@@ -33,8 +33,16 @@ static int __init hkip_register_bits(u8 *base, size_t size)
 
 #define DEFINE_HKIP_TASK_BITS(name)	DEFINE_HKIP_BITS(name, PID_MAX_DEFAULT)
 
+/*
+ * The addr_limit bitmap is part of the EL2 communication: entry.S and
+ * uao_thread_switch() consult it, and EL2 refuses to let it be flipped
+ * behind its back. It is needed whenever HISI_HHEE is enabled, so it lives
+ * outside the root-detection block below.
+ */
 DEFINE_HKIP_TASK_BITS(addr_limit_bits);
 EXPORT_SYMBOL(hkip_addr_limit_bits);
+
+#ifdef CONFIG_HISI_HKIP_ROOT_DETECT
 
 static DEFINE_HKIP_TASK_BITS(uid_root_bits);
 static DEFINE_HKIP_TASK_BITS(gid_root_bits);
@@ -126,11 +134,15 @@ void hkip_update_xid_root(const struct cred *creds)
 }
 EXPORT_SYMBOL(hkip_update_xid_root);
 
+#endif /* CONFIG_HISI_HKIP_ROOT_DETECT */
+
+#ifdef CONFIG_HISI_HHEE
 void hkip_init_task(struct task_struct *task)
 {
 	/* NOTE: Taking RCU and incrementing the reference count is useless
 	 * here, as the thread is not running yet, and credentials cannot
 	 * change. But no clean ways to avoid it. */
+#ifdef CONFIG_HISI_HKIP_ROOT_DETECT
 	const struct cred *creds = get_task_cred(task);
 
 	hkip_set_task_bit(hkip_uid_root_bits, task,
@@ -138,19 +150,22 @@ void hkip_init_task(struct task_struct *task)
 	hkip_set_task_bit(hkip_gid_root_bits, task,
 				hkip_compute_gid_root(creds));
 	put_cred(creds);
+#endif
 
 	/* thread info is inherited(copied) from parent thread */
 	hkip_set_task_bit(hkip_addr_limit_bits, task, hkip_is_kernel_fs());/*lint !e501*/
 }
+#endif /* CONFIG_HISI_HHEE */
 
 static int __init hkip_critdata_init(void)
 {
 	hkip_register_bits(hkip_addr_limit_bits, sizeof (hkip_addr_limit_bits));
+#ifdef CONFIG_HISI_HKIP_ROOT_DETECT
 	hkip_register_bits(hkip_uid_root_bits, sizeof (hkip_uid_root_bits));
 	hkip_register_bits(hkip_gid_root_bits, sizeof (hkip_gid_root_bits));
+#endif
 	return 0;
 }
-
 module_init(hkip_critdata_init);
 MODULE_DESCRIPTION("Huawei kernel critical data protection");
 MODULE_AUTHOR("Remi Denis-Courmont <remi.denis.courmont@huawei.com>");
