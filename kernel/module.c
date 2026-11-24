@@ -58,9 +58,6 @@
 #include <linux/percpu.h>
 #include <linux/kmemleak.h>
 #include <linux/jump_label.h>
-#include <asm/system_misc.h>
-#include <asm/sysreg.h>
-#include <asm/tlbflush.h>
 #include <linux/pfn.h>
 #include <linux/bsearch.h>
 #include <linux/dynamic_debug.h>
@@ -1868,43 +1865,6 @@ static void mod_sysfs_teardown(struct module *mod)
 	mod_sysfs_fini(mod);
 }
 
-/* TEMP-DEBUG: dump module layout and the real PTE of its init entry point. */
-static void module_debug_dump(const char *tag, const struct module *mod)
-{
-	pr_err("MODDBG[%s] %s: core=%lx size=%#x text=%#x ro=%#x ro_after=%#x\n",
-	       tag, mod->name,
-	       (unsigned long)mod->core_layout.base, mod->core_layout.size,
-	       mod->core_layout.text_size, mod->core_layout.ro_size,
-	       mod->core_layout.ro_after_init_size);
-	pr_err("MODDBG[%s] %s: init=%lx size=%#x text=%#x ro=%#x ro_after=%#x\n",
-	       tag, mod->name,
-	       (unsigned long)mod->init_layout.base, mod->init_layout.size,
-	       mod->init_layout.text_size, mod->init_layout.ro_size,
-	       mod->init_layout.ro_after_init_size);
-	pr_err("MODDBG[%s] %s: mod->init=%lx entry_off=%lx rodata_enabled=%d\n",
-	       tag, mod->name, (unsigned long)mod->init,
-	       (unsigned long)mod->init - (unsigned long)mod->init_layout.base,
-	       (int)rodata_enabled);
-	{
-		u64 sctlr = read_sysreg(sctlr_el1);
-		u64 ttbr1 = read_sysreg(ttbr1_el1);
-
-		pr_err("MODDBG[%s] sctlr_el1=%016llx WXN(b19)=%llu ttbr1_el1=%016llx\n",
-		       tag, sctlr, (sctlr >> 19) & 1, ttbr1);
-		pr_err("MODDBG[%s] swapper_pg_dir(va)=%px phys=%llx init_mm.pgd=%px\n",
-		       tag, (void *)swapper_pg_dir,
-		       (unsigned long long)__pa_symbol(swapper_pg_dir),
-		       (void *)init_mm.pgd);
-	}
-
-	if (mod->init_layout.base)
-		show_pte(&init_mm, (unsigned long)mod->init_layout.base);
-	if (mod->init) {
-		pr_err("MODDBG[%s] entry page:\n", tag);
-		show_pte(&init_mm, (unsigned long)mod->init);
-	}
-}
-
 #ifdef CONFIG_DEBUG_SET_MODULE_RONX
 /*
  * LKM RO/NX protection: protect module's text/ro-data
@@ -3494,15 +3454,6 @@ static noinline int do_init_module(struct module *mod)
 	current->flags &= ~PF_USED_ASYNC;
 
 	do_mod_ctors(mod);
-	module_debug_dump("pre-call", mod);
-	/* TEMP-DEBUG: vmap_page_range only calls flush_cache_vmap(), which is an
-	 * empty stub on arm64, and freed vmap areas are torn down lazily. The
-	 * module region comes out of vmalloc, so a stale translation for this
-	 * address could survive. Force a full TLB flush and re-read the entry. */
-	flush_tlb_all();
-	pr_err("MODDBG[pre-call] after flush_tlb_all:\n");
-	if (mod->init)
-		show_pte(&init_mm, (unsigned long)mod->init);
 	/* Start the module */
 	if (mod->init != NULL)
 		ret = do_one_initcall(mod->init);
@@ -3649,11 +3600,8 @@ static int complete_formation(struct module *mod, struct load_info *info)
 	/* This relies on module_mutex for list integrity. */
 	module_bug_finalize(info->hdr, info->sechdrs, mod);
 
-	module_debug_dump("pre-ro", mod);
 	module_enable_ro(mod, false);
-	module_debug_dump("post-ro", mod);
 	module_enable_nx(mod);
-	module_debug_dump("post-nx", mod);
 
 	/* Mark state as coming so strong_try_module_get() ignores us,
 	 * but kallsyms etc. can see us. */
