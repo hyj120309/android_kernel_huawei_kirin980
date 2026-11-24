@@ -107,6 +107,7 @@ struct image_type_name  modem_images_root[] =
 {
     {MODEM, DDR_MCORE_ADDR,         DDR_MCORE_SIZE,       MODEM_IMAGE_PATH,  "balong_modem.bin"},
     {HIFI,  DDR_HIFI_ADDR,          DDR_HIFI_SIZE,        MODEM_IMAGE_PATH,  "hifi.img"},/* Ô¤Áô */
+    {DSP,   DDR_TLPHY_IMAGE_ADDR,   DDR_TLPHY_IMAGE_SIZE, MODEM_IMAGE_PATH,  "phy.bin"},
     {TAS,   0,                      0,                    MODEM_IMAGE_PATH,  "tas.bin"},
     {WAS,   0,                      0,                    MODEM_IMAGE_PATH,  "was.bin"},
     {CAS,   0,                      0,                    MODEM_IMAGE_PATH,  "cas.bin"}, /* Ô¤Áô */
@@ -125,6 +126,7 @@ struct image_type_name modem_images_vendor[] =
 {
     {MODEM, DDR_MCORE_ADDR,         DDR_MCORE_SIZE,       MODEM_IMAGE_PATH_VENDOR,  "balong_modem.bin"},
     {HIFI,  DDR_HIFI_ADDR,          DDR_HIFI_SIZE,        MODEM_IMAGE_PATH_VENDOR,  "hifi.img"},/* Ô¤Áô */
+    {DSP,   DDR_TLPHY_IMAGE_ADDR,   DDR_TLPHY_IMAGE_SIZE, MODEM_IMAGE_PATH_VENDOR,  "phy.bin"},
     {TAS,   0,                      0,                    MODEM_IMAGE_PATH_VENDOR,  "tas.bin"},
     {WAS,   0,                      0,                    MODEM_IMAGE_PATH_VENDOR,  "was.bin"},
     {CAS,   0,                      0,                    MODEM_IMAGE_PATH_VENDOR,  "cas.bin"}, /* Ô¤Áô */
@@ -1093,9 +1095,22 @@ int bsp_load_modem_images(void)
         memset_s(&g_cold_patch_info,sizeof(g_cold_patch_info),0,sizeof(g_cold_patch_info));
     load_modem_cold_patch_image(DSP_COLD_PATCH);
 
-
-
-
+    /*
+     * Load the DSP (LPHY) firmware. Secboot verifies this image and maps it
+     * at DDR_TLPHY_IMAGE_ADDR (0x29B00000); the ccore image that follows is
+     * verified against the state this step leaves in the secure OS, so
+     * skipping it makes the MODEM verify fail with 0xffffff15.
+     *
+     * This call exists in the vendor build but was stripped from the public
+     * source drop, which is why there were five blank lines here.
+     */
+    ret = load_image(DSP, 0, 0);
+    if(ret)
+    {
+        sec_print_err("%s load DSP(phy.bin) fail, ret = 0x%x\n",
+                      __func__, ret);
+        goto error;
+    }
 
     cold_patch_stamp[0][1] = bsp_get_slice_value();
     update_modem_cold_patch_status(DSP_PATCH);
